@@ -11,7 +11,7 @@ class HomeController extends Controller
 
     public function __invoke(Request $request): BinaryFileResponse
     {
-        return response()->file($this->getRandomMeme(), ['Cache-control' => 'no-cache, must-revalidate']);
+        return response()->file($this->getRandomMeme(), ['Cache-control' => 'no-cache, no-store, must-revalidate']);
     }
 
     private function getMemes(): array
