@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class HomeController extends Controller
 {
-    private const MEME_DIRECTORY = 'memes';
+    public const MEME_DIRECTORY = 'memes';
 
     public function __invoke(Request $request): BinaryFileResponse
     {
-        return response()->file($this->getRandomMeme(), ['Cache-control' => 'no-cache, no-store, must-revalidate']);
+        $meme = Storage::disk('local')->path($this->getRandomMeme());
+
+        return response()->file($meme, ['Cache-control' => 'no-cache, no-store, must-revalidate']);
     }
 
     private function getMemes(): array
     {
-        return glob(public_path(self::MEME_DIRECTORY.DIRECTORY_SEPARATOR. "*"));
+        return Storage::files(self::MEME_DIRECTORY);
     }
 
     private function getRandomMeme(): string
