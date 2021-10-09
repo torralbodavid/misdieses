@@ -14,8 +14,10 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $this->get('/')
+            ->assertStatus(200)
+            ->assertHeader('Cache-control','must-revalidate, no-cache, no-store, public')
+            ->assertHeader('Content-Type','image/png');
     }
 }
