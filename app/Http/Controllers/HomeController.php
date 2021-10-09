@@ -16,11 +16,11 @@ class HomeController extends Controller
 
     private function getMemes(): array
     {
-        return glob(self::MEME_DIRECTORY . "/*");
+        return glob(public_path(self::MEME_DIRECTORY.DIRECTORY_SEPARATOR. "*"));
     }
 
     private function getRandomMeme(): string
     {
-        return collect($this->getMemes())->random(1)->first();
+        return collect($this->getMemes())->random();
     }
 }
