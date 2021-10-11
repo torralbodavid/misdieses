@@ -1,3 +1,5 @@
 *
+!memes/
+!memes/*.png
 !public/
 !.gitignore
